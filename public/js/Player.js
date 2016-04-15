@@ -4,27 +4,33 @@
 var Player = function(startX, startY) {
 	var x = startX,
 		y = startY,
-		moveAmount = 2;
-
+		pHeight = 100,
+		pWidth = 100,
+		moveAmount = 4;
+		hexColour = "#4d4dff";
+        
 	var update = function(keys) {
-		// Up key takes priority over down
-		if (keys.up) {
-			y -= moveAmount;
-		} else if (keys.down) {
-			y += moveAmount;
+	    
+		// switchColour key takes priority over esc key
+		if (keys.switchColour) {
+		    switch (hexColour) {
+			    case "#4d4dff":
+				    hexColour = "#66ff66";
+					break;
+				case "#66ff66":
+ 				    hexColour = "#4d4dff";
+					break;
+			}; // toggle colour code
+		    keys.switchColour = false;2
+		} else if (keys.esc) {
+	      //quit game code
 		};
 
-		// Left key takes priority over right
-		if (keys.left) {
-			x -= moveAmount;
-		} else if (keys.right) {
-			x += moveAmount;
-		};
 	};
 
 	var draw = function(ctx) {
-	    ctx.fillStyle="#33cc59";
-		ctx.fillRect(x-5, y-5, 20, 20);
+	    ctx.fillStyle=hexColour;
+		ctx.fillRect(x-(pWidth), y-(pHeight), pWidth, pHeight);
 	};
 
 	return {
